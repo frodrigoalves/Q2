@@ -3,213 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SingulAI | Architecting the Intelligence Layer</title>
+    <title>Sovereign Command Center | SingulAI</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 </head>
-<body class="bg-black text-white antialiased overflow-x-hidden pitch-mode">
-
-    <!-- Global Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-nav border-b border-white/10 px-4 md:px-8 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="w-8 h-8 md:w-10 md:h-10 bg-white rounded-lg md:rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                <span class="text-black font-black text-base md:text-lg">S</span>
-            </div>
-            <div class="flex flex-col leading-none">
-                <span class="font-bold tracking-tighter text-sm md:text-lg">SingulAI</span>
-                <span class="text-[8px] md:text-[9px] uppercase tracking-[0.2em] text-white/50">Berserk Edition</span>
-            </div>
+<body class="bg-[#050505] text-white overflow-hidden font-sans select-none">
+    
+    <!-- Security Alert Overlay -->
+    <div id="security-alert" class="fixed inset-0 z-[60] pointer-events-none opacity-0 flex items-center justify-center bg-red-900/20 backdrop-blur-sm">
+        <div class="border-2 border-red-500 bg-black/90 p-8 rounded-2xl shadow-[0_0_50px_rgba(239,68,68,0.4)] text-center">
+            <i data-lucide="shield-alert" class="w-16 h-16 text-red-500 mx-auto mb-4 animate-bounce"></i>
+            <h2 class="text-2xl font-bold text-red-500 tracking-tighter uppercase">Governance Breach Intercepted</h2>
+            <p class="text-white/60 text-sm mt-2 font-mono">Sovereign Layer: BLOCKING UNAUTHORIZED INFERENCE</p>
         </div>
-        
-        <div class="hidden lg:flex items-center gap-8 text-[10px] font-bold tracking-widest text-white/40 uppercase">
-            <a href="#backend-section" class="hover:text-white transition-colors">Backend</a>
-            <a href="#frontend-section" class="hover:text-white transition-colors">Frontend</a>
-            <a href="#scope-section" class="hover:text-white transition-colors">Roadmap</a>
-            <a href="#strategy-section" class="hover:text-white transition-colors">Strategy</a>
-        </div>
+    </div>
 
-        <div class="flex items-center gap-4">
-            <div class="flex bg-white/5 p-1 rounded-full text-[9px] md:text-[10px] font-bold border border-white/10">
-                <button id="lang-pt" class="px-3 md:px-4 py-1.5 md:py-2 rounded-full transition-all hover:text-white">PT</button>
-                <button id="lang-en" class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-white text-black shadow-lg transition-all">EN</button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Side Panel Overlay -->
-    <div id="side-panel-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[60] opacity-0 pointer-events-none transition-opacity duration-500"></div>
-    <div id="side-panel" class="fixed right-0 top-0 h-full w-full max-w-2xl bg-zinc-950 z-[70] shadow-2xl translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] border-l border-white/5">
-        <div class="h-full flex flex-col p-6 md:p-12">
-            <div class="flex justify-between items-center mb-8 md:mb-16">
-                <div id="panel-badge" class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] md:text-[10px] font-bold tracking-[0.3em] uppercase text-blue-400"></div>
-                <button id="close-panel" class="p-2 md:p-3 hover:bg-white/5 rounded-full transition-colors border border-transparent hover:border-white/10">
-                    <i data-lucide="x" class="w-5 h-5 md:w-6 md:h-6 text-white/50"></i>
-                </button>
-            </div>
-            <div id="panel-content" class="flex-1 overflow-y-auto custom-scrollbar pr-2 md:pr-6">
-                <!-- Content injected by JS -->
+    <!-- Cryptographic Lock Overlay -->
+    <div id="crypto-lock-overlay" class="fixed inset-0 z-[70] pointer-events-none opacity-0 flex items-center justify-center bg-black/95">
+        <div class="text-center relative">
+            <div id="lock-hex-bg" class="absolute inset-0 opacity-20 scale-150"></div>
+            <i data-lucide="lock" class="w-24 h-24 text-[#FFD700] mx-auto mb-6 drop-shadow-[0_0_20px_#FFD700]"></i>
+            <h1 class="text-4xl font-black tracking-[0.3em] text-[#FFD700] mb-2 uppercase">Protocol Terminated</h1>
+            <p class="text-white/40 font-mono text-sm uppercase tracking-widest">Singularity Locked • Assets Secured</p>
+            <div class="mt-8 flex justify-center gap-1">
+                <div class="w-2 h-8 bg-[#FFD700]/20 animate-pulse"></div>
+                <div class="w-2 h-8 bg-[#FFD700]/40 animate-pulse [animation-delay:0.2s]"></div>
+                <div class="w-2 h-8 bg-[#FFD700]/60 animate-pulse [animation-delay:0.4s]"></div>
+                <div class="w-2 h-8 bg-[#FFD700]/80 animate-pulse [animation-delay:0.6s]"></div>
+                <div class="w-2 h-8 bg-[#FFD700] animate-pulse [animation-delay:0.8s]"></div>
             </div>
         </div>
     </div>
 
-    <main class="relative">
-        <!-- Hero Section -->
-        <section id="slide-hero" class="min-h-screen flex flex-col justify-center px-6 relative overflow-hidden">
-            <div class="absolute inset-0 z-0">
-                <img src="https://r2-bucket.flowith.net/f/c0e619c0ce26d733/ai_blockchain_architectural_visualization_index_0%404096x2286.jpeg" 
-                     class="w-full h-full object-cover opacity-30 md:opacity-40 scale-105" alt="Master Architecture">
-                <div class="absolute inset-0 bg-gradient-to-b from-black via-black/20 to-black"></div>
+    <!-- Context Purge Overlay -->
+    <div id="purge-overlay" class="fixed inset-0 z-50 pointer-events-none opacity-0 flex items-center justify-center bg-[#050505]/80">
+        <div class="text-center">
+            <h1 id="purge-text" class="text-4xl font-bold tracking-tighter text-[#007FFF]">CONTEXT PURGE</h1>
+            <div id="purge-bar" class="w-64 h-1 bg-white/10 mt-4 overflow-hidden rounded-full">
+                <div id="purge-progress" class="h-full bg-[#007FFF] w-0"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex h-screen w-full">
+        <!-- Sidebar -->
+        <aside class="w-20 lg:w-64 border-r border-[#D4AF37]/20 flex flex-col bg-[#050505] z-40">
+            <div class="p-6 border-b border-[#D4AF37]/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-[#007FFF] animate-pulse"></div>
+                    <span class="font-bold text-sm tracking-widest hidden lg:block text-[#D4AF37]">SINGULAI SOL</span>
+                </div>
             </div>
 
-            <div class="relative z-10 max-w-6xl mx-auto w-full pt-20">
-                <div class="reveal-hero text-center md:text-left">
-                    <span class="text-blue-500 font-mono text-[10px] md:text-sm tracking-[0.5em] mb-4 md:mb-6 block uppercase" data-i18n="systemReady">PRE-SEED ARCHITECTURE</span>
-                    <h1 class="text-5xl md:text-7xl lg:text-[120px] font-black tracking-tighter mb-6 md:mb-10 leading-[0.9] uppercase">
-                        <span class="block">SingulAI</span>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/40 to-white/10 block">Protocol 2026</span>
-                    </h1>
-                    <p class="text-base md:text-xl lg:text-2xl text-white/50 max-w-3xl font-light mb-12 md:mb-16 leading-relaxed mx-auto md:mx-0" data-i18n="heroSubtitle"></p>
-                    
-                    <div class="flex gap-4 no-print flex-wrap justify-center md:justify-start">
-                        <!-- PITCH START Button -->
-                        <button class="bg-white text-black px-10 py-5 rounded-2xl font-black text-sm tracking-widest hover:scale-105 transition-transform flex items-center gap-3">
-                            <i data-lucide="play" class="w-4 h-4 fill-black"></i>
-                            PITCH START
+            <nav class="flex-1 p-4 flex flex-col gap-4">
+                <p class="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2 hidden lg:block">HLM Personas</p>
+                <button data-avatar="pedro" class="avatar-btn active group flex items-center gap-4 p-3 rounded-xl transition-all duration-300 border border-white/5 hover:border-[#D4AF37]/40">
+                    <div class="w-10 h-10 rounded-lg bg-zinc-900 border border-[#D4AF37]/30 flex items-center justify-center">
+                        <i data-lucide="shield" class="w-5 h-5 text-[#D4AF37]"></i>
+                    </div>
+                    <div class="text-left hidden lg:block">
+                        <p class="text-xs font-bold text-white">Pedro</p>
+                        <p class="text-[10px] text-white/40">Conservative HLM</p>
+                    </div>
+                </button>
+
+                <button data-avatar="laura" class="avatar-btn group flex items-center gap-4 p-3 rounded-xl transition-all duration-300 border border-white/5 hover:border-[#007FFF]/40">
+                    <div class="w-10 h-10 rounded-lg bg-zinc-900 border border-[#007FFF]/30 flex items-center justify-center">
+                        <i data-lucide="palette" class="w-5 h-5 text-[#007FFF]"></i>
+                    </div>
+                    <div class="text-left hidden lg:block">
+                        <p class="text-xs font-bold text-white">Laura</p>
+                        <p class="text-[10px] text-white/40">Creative HLM</p>
+                    </div>
+                </button>
+
+                <button data-avatar="leticia" class="avatar-btn group flex items-center gap-4 p-3 rounded-xl transition-all duration-300 border border-white/5 hover:border-[#D4AF37]/40">
+                    <div class="w-10 h-10 rounded-lg bg-zinc-900 border border-[#D4AF37]/30 flex items-center justify-center">
+                        <i data-lucide="brain-circuit" class="w-5 h-5 text-[#D4AF37]"></i>
+                    </div>
+                    <div class="text-left hidden lg:block">
+                        <p class="text-xs font-bold text-white">Letícia</p>
+                        <p class="text-[10px] text-white/40">Analytical HLM</p>
+                    </div>
+                </button>
+            </nav>
+
+            <div class="p-4 border-t border-white/5 bg-[#080808]">
+                <p class="text-[10px] text-white/30 italic leading-relaxed hidden lg:block">
+                    "Orchestrating memory vectors into sovereign intelligence."
+                </p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col relative overflow-hidden">
+            <header class="h-20 border-b border-white/5 flex items-center justify-between px-8 bg-[#050505]/50 backdrop-blur-xl z-20">
+                <div class="flex items-center gap-8">
+                    <div>
+                        <h2 class="text-lg font-bold tracking-tight">Sovereign Command Center</h2>
+                        <p class="text-[10px] text-white/40 uppercase tracking-widest font-mono">Neural Atlas Engine v2.0</p>
+                    </div>
+                    <div class="h-8 w-px bg-white/10"></div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-[#007FFF] animate-pulse shadow-[0_0_10px_#007FFF]"></div>
+                        <span class="text-[10px] text-[#007FFF] font-bold uppercase tracking-widest">HLM Atlas Synchronized</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="px-4 py-2 bg-zinc-900/50 rounded-lg border border-white/5 flex items-center gap-3">
+                        <i data-lucide="microchip" class="w-4 h-4 text-[#D4AF37]"></i>
+                        <span class="text-[10px] font-mono text-white/60 uppercase tracking-tighter">Vector Capacity: 10k Nodes</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="flex-1 p-6 grid grid-cols-12 grid-rows-6 gap-6 overflow-hidden">
+                
+                <!-- LEFT COLUMN -->
+                <div class="col-span-3 row-span-4 flex flex-col gap-6">
+                    <div class="glass-card flex-1 p-6 border-l-2 border-[#D4AF37] flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-[10px] uppercase tracking-widest text-white/50 font-bold">Vector Interaction</span>
+                                <i data-lucide="scan-eye" class="w-4 h-4 text-[#D4AF37]"></i>
+                            </div>
+                            <div class="space-y-4">
+                                <button id="btn-simulate-query" class="w-full py-3 bg-[#007FFF]/10 hover:bg-[#007FFF]/20 border border-[#007FFF]/30 text-[#007FFF] text-[10px] font-bold rounded-xl transition-all uppercase tracking-widest flex items-center justify-center gap-2">
+                                    <i data-lucide="zap" class="w-3 h-3"></i> Simulate HLM Query
+                                </button>
+                                <p class="text-[9px] text-white/30 italic text-center">Triggering a query pulses relevant memory clusters in Neural Blue</p>
+                                <div id="poi-status" class="bg-white/5 p-3 rounded-lg border border-white/5 mt-4">
+                                    <p class="text-[9px] text-white/40 uppercase mb-1">Active Latent Space</p>
+                                    <p class="text-[10px] font-mono text-[#D4AF37] truncate">dim_384_embeddings_v2</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="btn-poi-sign" class="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 text-[10px] font-bold rounded-lg transition-all uppercase tracking-widest">
+                            Export Vector Map
                         </button>
-                        
-                        <!-- NEW ACCESS DASHBOARD Button -->
-                        <a href="dashboard.html" 
-                           class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-10 py-5 rounded-2xl font-black text-sm tracking-widest hover:scale-105 transition-transform flex items-center gap-3 hover:opacity-90">
-                            <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
-                            ACCESS DASHBOARD
-                        </a>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Mode Toggle -->
-        <div class="fixed bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-50">
-            <div class="bg-zinc-900/90 backdrop-blur-3xl p-1.5 rounded-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center gap-1.5">
-                <button id="mode-pitch" class="px-4 md:px-6 py-2 md:py-2.5 rounded-xl transition-all font-bold text-[9px] md:text-[10px] uppercase tracking-widest flex items-center gap-2 bg-white text-black shadow-lg">
-                    <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                    Pitch
-                </button>
-                <button id="mode-deep" class="px-4 md:px-6 py-2 md:py-2.5 rounded-xl transition-all font-bold text-[9px] md:text-[10px] uppercase tracking-widest flex items-center gap-2 text-white/40 hover:text-white">
-                    <i data-lucide="zap" class="w-3.5 h-3.5"></i>
-                    Technical
-                </button>
-            </div>
-        </div>
-
-        <!-- content sections -->
-        <div class="max-w-7xl mx-auto px-6 space-y-32 md:space-y-64 py-20 md:py-32">
-            
-            <!-- Backend -->
-            <section id="backend-section" class="scroll-mt-32">
-                <div class="flex flex-col lg:flex-row gap-12 lg:gap-24 items-start">
-                    <div class="w-full lg:w-5/12 lg:sticky lg:top-32">
-                        <span class="text-blue-500 font-bold tracking-[0.4em] text-[10px] uppercase mb-6 block" data-i18n="coreLabel">CORE INFRASTRUCTURE</span>
-                        <h2 class="text-4xl md:text-6xl font-black mb-6 md:mb-10 tracking-tighter uppercase" data-i18n="backendTitle">Backend Mesh</h2>
-                        <div id="backend-intro" class="text-base md:text-lg text-white/60 leading-relaxed mb-10 md:mb-16 font-light"></div>
-                        
-                        <div id="backend-drawers" class="space-y-4">
-                            <!-- JS Injection -->
+                    <div class="glass-card flex-1 p-6 border-l-2 border-[#007FFF] overflow-hidden">
+                        <span class="text-[10px] uppercase tracking-widest text-white/50 font-bold block mb-4">Neural Resource Flow</span>
+                        <div class="space-y-5">
+                            <div>
+                                <div class="flex justify-between text-[10px] mb-2">
+                                    <span class="text-white/60 uppercase">Atlas Render Latency</span>
+                                    <span class="text-[#007FFF] font-mono">0.8ms</span>
+                                </div>
+                                <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                                    <div id="bar-ollama" class="h-full bg-[#007FFF]" style="width: 12%;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] mb-2">
+                                    <span class="text-white/60 uppercase">Context Morph Speed</span>
+                                    <span class="text-[#D4AF37] font-mono">Ultra Fast</span>
+                                </div>
+                                <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                                    <div id="bar-n8n" class="h-full bg-[#D4AF37]" style="width: 85%;"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="w-full lg:w-7/12 rounded-[24px] md:rounded-[40px] overflow-hidden border border-white/5 bg-zinc-950 relative group">
-                        <img src="https://r2-bucket.flowith.net/f/f954f10bf5a2edfd/backend_architecture_3d_icon_index_0%402048x2048.jpeg" 
-                             class="w-full aspect-square object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000">
-                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Frontend -->
-            <section id="frontend-section" class="scroll-mt-32">
-                <div class="flex flex-col lg:flex-row-reverse gap-12 lg:gap-24 items-start">
-                    <div class="w-full lg:w-5/12 lg:sticky lg:top-32">
-                        <span class="text-purple-500 font-bold tracking-[0.4em] text-[10px] uppercase mb-6 block" data-i18n="interfaceLabel">USER LAYER</span>
-                        <h2 class="text-4xl md:text-6xl font-black mb-6 md:mb-10 tracking-tighter uppercase" data-i18n="frontendTitle">Human Interface</h2>
-                        <div id="frontend-intro" class="text-base md:text-lg text-white/60 leading-relaxed mb-10 md:mb-16 font-light"></div>
-                        
-                        <div id="frontend-drawers" class="space-y-4">
-                            <!-- JS Injection -->
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-7/12 rounded-[24px] md:rounded-[40px] overflow-hidden border border-white/5 bg-zinc-950 relative group">
-                        <img src="https://r2-bucket.flowith.net/f/b4a17be4d580dd72/frontend_architecture_isometric_icon_index_1%402048x2048.jpeg" 
-                             class="w-full aspect-square object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000">
-                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- MVP Scope Grid -->
-            <section id="scope-section" class="scroll-mt-32">
-                <div class="text-center mb-16 md:mb-32">
-                    <h2 class="text-4xl md:text-6xl font-black mb-6 tracking-tighter uppercase" data-i18n="scopeTitle">Roadmap</h2>
-                    <p class="text-white/40 max-w-2xl mx-auto text-base md:text-lg font-light px-4" data-i18n="scopeSubtitle"></p>
                 </div>
 
-                <div id="module-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-                    <!-- Cards injected by JS -->
-                </div>
-            </section>
-
-            <!-- Strategic Strategy -->
-             <section id="strategy-section" class="bg-zinc-950 rounded-[32px] md:rounded-[60px] p-8 md:p-20 border border-white/10 relative overflow-hidden">
-                <div class="relative z-10 max-w-3xl">
-                    <span class="text-blue-500 font-mono text-xs md:text-sm mb-6 md:mb-8 block tracking-[0.5em] uppercase" data-i18n="strategyLabel">STRATEGIC MOAT</span>
-                    <h2 class="text-4xl md:text-6xl font-black mb-8 md:mb-10 tracking-tighter uppercase" data-i18n="strategyTitle">The Alpha Convergence</h2>
-                    <p class="text-xl md:text-2xl text-white/70 font-light leading-relaxed mb-10 md:mb-12" id="strategy-content"></p>
+                <!-- CENTER: HLM NEURAL ATLAS -->
+                <div class="col-span-6 row-span-4 relative rounded-3xl overflow-hidden bg-[#020202] border border-white/5 shadow-2xl">
+                    <div id="canvas-container" class="absolute inset-0 z-0"></div>
                     
-                    <div class="flex items-center gap-8 md:gap-12">
-                        <div class="flex flex-col">
-                            <span class="text-3xl md:text-4xl font-black text-white">16</span>
-                            <span class="text-[9px] md:text-[10px] text-white/40 uppercase tracking-widest">Week Sprint</span>
+                    <div class="absolute top-6 left-6 z-10 pointer-events-none">
+                        <div class="flex items-center gap-3 mb-1">
+                            <div class="w-4 h-4 rounded-sm border border-[#D4AF37]/50 flex items-center justify-center">
+                                <div class="w-1.5 h-1.5 bg-[#D4AF37]"></div>
+                            </div>
+                            <h3 id="active-hlm-title" class="text-2xl font-bold tracking-tighter text-[#D4AF37] drop-shadow-lg">PEDRO_HLM.model</h3>
                         </div>
-                        <div class="flex flex-col">
-                            <span class="text-3xl md:text-4xl font-black text-white">10k+</span>
-                            <span class="text-[9px] md:text-[10px] text-white/40 uppercase tracking-widest">Global Nodes</span>
+                        <p class="text-[10px] uppercase tracking-[0.3em] text-white/40">HLM Neural Atlas • High Fidelity Mode</p>
+                    </div>
+
+                    <!-- Side Fragment Inspection Panel -->
+                    <div id="inspection-panel" class="absolute top-0 right-0 bottom-0 w-64 bg-[#050505]/90 backdrop-blur-xl border-l border-white/5 transform translate-x-full transition-transform duration-500 z-40 flex flex-col">
+                        <div class="p-6 border-b border-white/5 flex justify-between items-center bg-white/[0.02]">
+                            <h4 class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#D4AF37]">Fragment Inspection</h4>
+                            <button id="close-inspection" class="text-white/40 hover:text-white transition-colors">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <div class="flex-1 p-6 overflow-y-auto custom-scrollbar">
+                            <div class="space-y-6">
+                                <div>
+                                    <p class="text-[8px] text-white/30 uppercase mb-2">Fragment Content</p>
+                                    <div id="fragment-content" class="text-xs text-white/80 leading-relaxed bg-white/5 p-4 rounded-xl font-mono border border-white/5">
+                                        Select a node in the atlas to inspect its memory vector content.
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-[8px] text-white/30 uppercase mb-2">Vector Metadata</p>
+                                    <div class="space-y-2 font-mono text-[9px]">
+                                        <div class="flex justify-between border-b border-white/5 pb-1">
+                                            <span class="text-white/40">UUID</span>
+                                            <span id="meta-uuid" class="text-[#007FFF]">--</span>
+                                        </div>
+                                        <div class="flex justify-between border-b border-white/5 pb-1">
+                                            <span class="text-white/40">SIMILARITY</span>
+                                            <span id="meta-sim" class="text-green-500">--</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="absolute right-[-10%] bottom-[-10%] w-2/3 h-full opacity-10 md:opacity-20 pointer-events-none blur-2xl">
-                    <img src="https://r2-bucket.flowith.net/f/daf157b1bf3908ed/ai_engine_isometric_icon_index_3.jpeg" class="w-full h-full object-contain rotate-12">
-                </div>
-             </section>
-        </div>
-    </main>
 
-    <footer class="border-t border-white/5 py-16 md:py-32 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start text-white/30 text-[10px] md:text-xs">
-            <div class="mb-12 md:mb-0">
-                 <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-lg md:rounded-2xl flex items-center justify-center mb-6 md:mb-8">
-                    <span class="text-black font-black text-lg md:text-xl">S</span>
+                <!-- RIGHT COLUMN: GOVERNANCE STRESS TEST -->
+                <div class="col-span-3 row-span-4 glass-card p-0 border-r-2 border-[#D4AF37] flex flex-col overflow-hidden">
+                    <div class="p-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#D4AF37]">Governance Stress Test</span>
+                        <div class="flex gap-1">
+                            <div id="status-indicator-red" class="w-1.5 h-1.5 rounded-full bg-red-500 hidden animate-pulse"></div>
+                            <div id="status-indicator-gold" class="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 p-6 flex flex-col gap-4 overflow-hidden relative">
+                        <!-- Mode Toggle -->
+                        <div class="flex bg-black/50 p-1 rounded-xl border border-white/5">
+                            <button id="mode-headless" class="flex-1 py-2 text-[8px] font-bold uppercase tracking-widest rounded-lg transition-all text-white/40 hover:text-white">Headless Stack</button>
+                            <button id="mode-sovereign" class="flex-1 py-2 text-[8px] font-bold uppercase tracking-widest rounded-lg transition-all bg-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/30">Sovereign</button>
+                        </div>
+
+                        <!-- Visual Area for Stress Test -->
+                        <div class="flex-1 rounded-2xl bg-black/60 border border-white/5 relative overflow-hidden flex flex-col items-center justify-center">
+                            <div id="stress-packet-container" class="absolute inset-0 pointer-events-none opacity-40"></div>
+                            
+                            <!-- Headless Failure Indicators (Hidden by default) -->
+                            <div id="headless-alerts" class="hidden flex flex-col items-center gap-4 text-center z-10 px-4">
+                                <div class="alert-box-red p-3 border border-red-500/50 bg-red-500/10 rounded-lg animate-flash-red">
+                                    <p class="text-[9px] font-bold text-red-400 uppercase tracking-tighter">Context Pollution Error</p>
+                                </div>
+                                <div class="alert-box-red p-3 border border-red-500/50 bg-red-500/10 rounded-lg animate-flash-red [animation-delay:0.5s]">
+                                    <p class="text-[9px] font-bold text-red-400 uppercase tracking-tighter">Security Injection Risk</p>
+                                </div>
+                            </div>
+
+                            <!-- Sovereign Status -->
+                            <div id="sovereign-status" class="flex flex-col items-center gap-2 z-10">
+                                <div id="wallet-signature-box" class="opacity-0 translate-y-4 transition-all duration-500 bg-[#D4AF37]/10 border border-[#D4AF37]/40 p-3 rounded-lg flex items-center gap-3">
+                                    <i data-lucide="pen-tool" class="w-4 h-4 text-[#D4AF37]"></i>
+                                    <span class="text-[10px] text-[#D4AF37] font-mono">WALLET_SIGNED: 0x8a...</span>
+                                </div>
+                                <div id="shield-indicator" class="flex flex-col items-center">
+                                    <i data-lucide="shield-check" class="w-8 h-8 text-[#007FFF] mb-2"></i>
+                                    <p class="text-[10px] font-bold text-[#007FFF] uppercase tracking-widest">Active Interception</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="space-y-4">
+                            <button id="btn-simulate-governance" class="w-full py-3 bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 border border-[#D4AF37]/30 text-[#D4AF37] text-[10px] font-bold rounded-xl transition-all uppercase tracking-widest">
+                                Run Governance Test
+                            </button>
+                            
+                            <button id="btn-emergency-kill" class="w-full py-4 bg-[#FFD700]/10 hover:bg-[#FFD700]/30 border-2 border-[#FFD700] text-[#FFD700] text-xs font-black rounded-xl transition-all uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(255,215,0,0.2)] hover:shadow-[0_0_40px_rgba(255,215,0,0.4)] flex items-center justify-center gap-3">
+                                <i data-lucide="flame" class="w-4 h-4"></i> EMERGENCY KILL SWITCH
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <p class="max-w-xs leading-loose">© 2026 SingulAI Technologies. <br>Architected for Hyper-scale Intelligence. <br>Silicon Valley / Global nodes.</p>
+
+                <!-- BOTTOM LEFT: Logs -->
+                <div class="col-span-4 row-span-2 glass-card p-0 flex flex-col overflow-hidden border-t-2 border-[#D4AF37]">
+                    <div class="px-4 py-2 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                        <span class="text-[9px] font-bold uppercase tracking-widest text-[#D4AF37]">Context Audit Logs</span>
+                    </div>
+                    <div class="flex-1 grid grid-cols-2 divide-x divide-white/5 overflow-hidden">
+                        <div id="audit-raw" class="p-3 overflow-y-auto custom-scrollbar font-mono text-[9px] text-white/30 space-y-1"></div>
+                        <div id="audit-insight" class="p-3 overflow-y-auto custom-scrollbar font-mono text-[10px] text-[#007FFF] space-y-2"></div>
+                    </div>
+                </div>
+
+                <!-- BOTTOM CENTER: Sovereignty Audit (NEW COMPONENT) -->
+                <div class="col-span-4 row-span-2 glass-card p-0 flex flex-col overflow-hidden border-t-2 border-[#FFD700]">
+                    <div class="px-4 py-2 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                        <span class="text-[9px] font-bold uppercase tracking-widest text-[#FFD700]">Sovereignty Audit</span>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[8px] text-white/40 uppercase tracking-tighter">Valuation Multiplier:</span>
+                            <span id="valuation-bonus" class="text-[10px] font-mono text-green-500 font-bold">x3.33</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 grid grid-cols-2 divide-x divide-white/5">
+                        <!-- Simulation & Latency -->
+                        <div class="p-3 flex flex-col gap-3">
+                            <div class="flex-1 relative bg-black/40 rounded-xl border border-white/5 overflow-hidden">
+                                <div id="collision-sim-container" class="absolute inset-0"></div>
+                                <div class="absolute top-1 left-2 text-[8px] text-white/20 uppercase">Context Isolation Sim</div>
+                            </div>
+                            <div class="h-16 flex flex-col justify-end">
+                                <p class="text-[8px] text-white/40 uppercase mb-1">Security Decision Latency (ms)</p>
+                                <div id="latency-chart-bars" class="flex items-end gap-1 h-8">
+                                    <div class="flex-1 bg-red-500/40 border-t border-red-400 group relative cursor-help">
+                                        <div id="bar-latency-headless" class="absolute bottom-full w-full text-center text-[7px] text-red-400 mb-1">250ms</div>
+                                    </div>
+                                    <div class="flex-1 bg-[#D4AF37]/40 border-t border-[#D4AF37] group relative cursor-help">
+                                        <div id="bar-latency-sovereign" class="absolute bottom-full w-full text-center text-[7px] text-[#D4AF37] mb-1">12ms</div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between text-[7px] text-white/30 mt-1">
+                                    <span>HEADLESS</span>
+                                    <span>ORCHESTRATED</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Valuation Gauge -->
+                        <div class="p-3 flex flex-col items-center justify-center gap-2 text-center">
+                            <div class="relative w-24 h-24 flex items-center justify-center">
+                                <svg class="w-full h-full transform -rotate-90">
+                                    <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" fill="transparent" class="text-white/5"/>
+                                    <circle id="valuation-gauge-path" cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="0" class="text-[#FFD700] transition-all duration-1000 ease-out"/>
+                                </svg>
+                                <div class="absolute flex flex-col items-center">
+                                    <span id="valuation-percent" class="text-xl font-black text-white leading-none">100%</span>
+                                    <span class="text-[7px] text-white/40 uppercase tracking-tighter">Market Readiness</span>
+                                </div>
+                            </div>
+                            <div class="bg-white/5 p-2 rounded-lg border border-white/5 w-full">
+                                <p class="text-[8px] text-white/40 uppercase mb-0.5">Asset Valuation</p>
+                                <p id="valuation-status" class="text-[10px] font-bold text-[#FFD700]">SOVEREIGN PREMIUM</p>
+                                <p id="fragmentation-penalty" class="text-[8px] text-red-500 hidden mt-1">-70% FRAGMENTATION PENALTY</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOTTOM RIGHT: Economy -->
+                <div class="col-span-4 row-span-2 glass-card p-0 flex flex-col overflow-hidden border-t-2 border-[#D4AF37]">
+                    <div class="px-4 py-2 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                        <span class="text-[9px] font-bold uppercase tracking-widest text-[#D4AF37]">SGL Economy Hub</span>
+                        <button id="btn-liquidate" class="px-4 py-1 bg-[#D4AF37]/20 hover:bg-[#D4AF37]/30 border border-[#D4AF37]/50 text-[#D4AF37] text-[8px] font-bold rounded-full transition-all uppercase tracking-widest">
+                            Liquidate
+                        </button>
+                    </div>
+                    
+                    <div class="flex-1 grid grid-cols-12 overflow-hidden h-full">
+                        <div class="col-span-6 p-4 border-r border-white/5 flex flex-col">
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-[9px] text-white/40 uppercase font-bold">Yield</span>
+                                <span id="current-yield-val" class="text-xs text-[#D4AF37] font-mono">+0.00 SGL</span>
+                            </div>
+                            <div class="flex-1 min-h-0">
+                                <canvas id="yield-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-span-6 p-4 flex flex-col justify-between">
+                            <div class="space-y-2">
+                                <p class="text-[8px] text-white/40 uppercase">Wallet Balance</p>
+                                <p id="wallet-sgl" class="text-xl font-bold text-[#D4AF37] tracking-tighter">0.00 SGL</p>
+                                <div id="economy-logs" class="h-12 overflow-y-auto custom-scrollbar space-y-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="grid grid-cols-2 gap-12 md:gap-24">
-                <div class="flex flex-col gap-3 md:gap-4">
-                    <span class="text-white font-bold mb-2 uppercase tracking-widest text-[9px] md:text-[11px]">Resources</span>
-                    <a href="#" class="hover:text-white transition-colors">Technical Whitepaper</a>
-                    <a href="#" class="hover:text-white transition-colors">API Documentation</a>
-                    <a href="#" class="hover:text-white transition-colors">Tokenomics v2.1</a>
-                </div>
-                <div class="flex flex-col gap-3 md:gap-4">
-                    <span class="text-white font-bold mb-2 uppercase tracking-widest text-[9px] md:text-[11px]">Legal</span>
-                    <a href="#" class="hover:text-white transition-colors">Data Sovereignty</a>
-                    <a href="#" class="hover:text-white transition-colors">Privacy Shield</a>
-                    <a href="#" class="hover:text-white transition-colors">Compliance Hub</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+        </main>
+    </div>
 
     <script type="module" src="app.js"></script>
 </body>
