@@ -1,142 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SingulAI Experience Hub | 2026 HLM</title>
+    <title>SingulAI | Digital Eternization</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-black text-white overflow-hidden font-sans">
-    <div id="app" class="flex h-screen w-full">
-        <!-- Sidebar Navigation -->
-        <aside class="w-20 md:w-64 border-r border-white/10 bg-zinc-950/50 backdrop-blur-xl flex flex-col items-center py-8 z-50">
-            <div class="mb-12">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-white/20 to-transparent flex items-center justify-center border border-white/20">
-                    <i data-lucide="shield-check" class="text-white w-6 h-6"></i>
+<body class="bg-[#000033] text-white overflow-hidden font-sans">
+    
+    <!-- Background Layer -->
+    <div id="main-bg" class="fixed inset-0 z-0 bg-cover bg-center transition-transform scale-110 opacity-0" 
+         style="background-image: url('https://r2-bucket.flowith.net/f/e08a497b5fb7d9e0/cyber_organic_neural_swarm_background_index_0%404096x2286.jpeg');">
+        <div id="bg-overlay" class="absolute inset-0 bg-[#000033]/70 backdrop-blur-[2px]"></div>
+    </div>
+
+    <!-- Interface Layer -->
+    <div id="main-container" class="relative z-10 flex flex-col min-h-screen opacity-0">
+        
+        <!-- Header -->
+        <header class="flex flex-col sm:flex-row justify-between items-center p-6 lg:px-16 gap-4">
+            <div class="logo flex items-center gap-2">
+                <div class="w-10 h-10 rounded-full border border-[#D4AF37] flex items-center justify-center bg-white/5 backdrop-blur-md">
+                    <i data-lucide="infinity" class="text-[#D4AF37] w-6 h-6"></i>
                 </div>
+                <span class="text-xl md:text-2xl font-light tracking-widest uppercase">Singul<span class="font-bold text-[#D4AF37]">AI</span></span>
             </div>
-            
-            <nav class="flex-1 space-y-6 w-full px-4">
-                <button data-avatar="rafaela" class="nav-btn group active w-full flex items-center gap-4 p-3 rounded-xl transition-all hover:bg-white/5">
-                    <i data-lucide="book-open" class="w-6 h-6 text-zinc-400 group-[.active]:text-ice-blue"></i>
-                    <span class="hidden md:block font-medium text-zinc-400 group-[.active]:text-white">Rafaela</span>
+
+            <nav class="flex items-center gap-4">
+                <!-- Language Selector -->
+                <button id="lang-toggle" class="glass-button p-2 rounded-full flex items-center gap-2 px-4 text-[10px] font-bold tracking-widest uppercase">
+                    <i data-lucide="languages" class="w-4 h-4"></i>
+                    <span id="current-lang">EN</span>
                 </button>
-                <button data-avatar="vitor" class="nav-btn group w-full flex items-center gap-4 p-3 rounded-xl transition-all hover:bg-white/5">
-                    <i data-lucide="activity" class="w-6 h-6 text-zinc-400 group-[.active]:text-neon-green"></i>
-                    <span class="hidden md:block font-medium text-zinc-400 group-[.active]:text-white">Vitor</span>
-                </button>
-                <button data-avatar="johann" class="nav-btn group w-full flex items-center gap-4 p-3 rounded-xl transition-all hover:bg-white/5">
-                    <i data-lucide="sparkles" class="w-6 h-6 text-zinc-400 group-[.active]:text-vibrant-gold"></i>
-                    <span class="hidden md:block font-medium text-zinc-400 group-[.active]:text-white">Johann</span>
-                </button>
-                <div class="h-px bg-white/10 my-4"></div>
-                <button id="tech-specs-trigger" class="group w-full flex items-center gap-4 p-3 rounded-xl transition-all hover:bg-white/5">
-                    <i data-lucide="cpu" class="w-6 h-6 text-zinc-400"></i>
-                    <span class="hidden md:block font-medium text-zinc-400">Tech Specs</span>
+                
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="glass-button p-2 rounded-full">
+                    <i data-lucide="sun" class="w-4 h-4 md:w-5 md:h-5 theme-icon-light hidden"></i>
+                    <i data-lucide="moon" class="w-4 h-4 md:w-5 md:h-5 theme-icon-dark"></i>
                 </button>
             </nav>
+        </header>
 
-            <div class="mt-auto space-y-4 px-4 w-full">
-                <div id="ambient-control" class="p-3 rounded-xl bg-white/5 border border-white/5">
-                    <div class="flex items-center justify-between mb-2">
-                        <i data-lucide="music" class="w-4 h-4 text-zinc-500"></i>
-                        <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.3" class="w-20 accent-white">
-                    </div>
+        <!-- Hero Content -->
+        <main class="flex-grow flex flex-col items-center justify-center px-6 text-center">
+            <div class="max-w-4xl glass-card p-10 lg:p-20 rounded-[40px] border border-white/10 relative overflow-hidden">
+                <p id="hero-tagline" class="text-[#D4AF37] uppercase tracking-[0.4em] text-[10px] md:text-xs mb-6 font-bold opacity-80">
+                    Pillars of Legacy
+                </p>
+                <h1 id="hero-title" class="text-3xl md:text-5xl lg:text-7xl font-light mb-8 leading-tight">
+                    Digital <span class="font-semibold text-white">Eternization</span>.
+                </h1>
+                <p id="hero-desc" class="text-base md:text-xl text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    The blockchain layer that completes the digital twin lifecycle. Where intelligence meets immortality.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
+                    <button id="btn-site" class="premium-button-outline w-full sm:w-auto px-10 py-4 rounded-full text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-3">
+                        <span data-i18n="go_to_site">Go to Site</span>
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </button>
+                    <button id="btn-demo-trigger" class="premium-button w-full sm:w-auto px-12 py-4 rounded-full text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                        <span data-i18n="demonstration">Demonstration</span>
+                        <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                    </button>
                 </div>
             </div>
-        </aside>
 
-        <!-- Main Dashboard Content -->
-        <main class="flex-1 relative overflow-y-auto bg-zinc-950">
-            <div id="content-container" class="opacity-0 transition-opacity duration-700 ease-in-out">
-                
-                <!-- Hero Section -->
-                <section class="relative h-[60vh] flex items-end p-8 md:p-16 overflow-hidden">
-                    <div id="avatar-bg" class="absolute inset-0 z-0 bg-cover bg-center transition-all duration-1000 scale-105"></div>
-                    <div class="absolute inset-0 z-10 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
-                    
-                    <div class="relative z-20 max-w-4xl">
-                        <div id="avatar-mode" class="text-xs tracking-widest uppercase mb-4 opacity-70"></div>
-                        <h1 id="avatar-name" class="text-6xl md:text-8xl font-bold mb-6 tracking-tighter"></h1>
-                        <p id="avatar-bio" class="text-lg md:text-xl text-zinc-300 max-w-2xl leading-relaxed mb-8"></p>
-                        
-                        <div class="flex items-center gap-4">
-                            <button id="play-voice" class="flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full font-bold hover:scale-105 transition-transform">
-                                <i data-lucide="play" class="w-5 h-5 fill-current"></i>
-                                Listen to Avatar
-                            </button>
-                            <div class="px-6 py-4 rounded-full border border-white/20 backdrop-blur-md">
-                                <span class="text-zinc-400 text-sm">HLM Core:</span>
-                                <span class="font-mono text-white ml-2">v2.0.26-Stable</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Telemetry & Data -->
-                <section class="p-8 md:p-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="glass-card p-8 rounded-3xl border border-white/10">
-                        <div class="flex items-center justify-between mb-8">
-                            <h2 class="text-2xl font-bold">HLM Telemetry</h2>
-                            <i data-lucide="bar-chart-3" class="text-accent-color w-6 h-6"></i>
-                        </div>
-                        <div class="h-64 relative">
-                            <canvas id="telemetryChart"></canvas>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="glass-card p-6 rounded-3xl border border-white/10 flex flex-col justify-between">
-                            <span class="text-zinc-500 text-sm">Precision</span>
-                            <div class="mt-4">
-                                <div id="stat-precision" class="text-4xl font-mono mb-2">0%</div>
-                                <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                                    <div id="bar-precision" class="h-full bg-accent-color transition-all duration-1000" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="glass-card p-6 rounded-3xl border border-white/10 flex flex-col justify-between">
-                            <span class="text-zinc-500 text-sm">Responsiveness</span>
-                            <div class="mt-4">
-                                <div id="stat-response" class="text-4xl font-mono mb-2">0ms</div>
-                                <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                                    <div id="bar-response" class="h-full bg-accent-color transition-all duration-1000" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="glass-card p-6 rounded-3xl border border-white/10 flex flex-col justify-between col-span-2">
-                            <span class="text-zinc-500 text-sm">System Constraints</span>
-                            <p id="system-constraint" class="mt-4 italic text-zinc-300 text-sm leading-relaxed"></p>
-                        </div>
-                    </div>
-                </section>
-
-                <footer class="p-8 md:p-16 border-t border-white/5">
-                    <div class="max-w-4xl mx-auto text-center">
-                        <p class="text-zinc-400 text-lg italic mb-4">
-                            "A tecnologia não deve mais tentar imitar a humanidade em massa, mas sim amplificar a singularidade de cada indivíduo."
-                        </p>
-                        <div class="text-xs text-zinc-600 tracking-widest uppercase">SingulAI Visionary Group &copy; 2026</div>
-                    </div>
-                </footer>
+            <!-- Pillars Indicator -->
+            <div class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-16 max-w-5xl opacity-40">
+                <div class="flex flex-col items-center gap-3">
+                    <i data-lucide="wallet" class="w-5 h-5 text-[#D4AF37]"></i>
+                    <span class="text-[9px] uppercase tracking-[0.2em] font-bold">Defi</span>
+                </div>
+                <div class="flex flex-col items-center gap-3">
+                    <i data-lucide="brain-circuit" class="w-5 h-5 text-[#D4AF37]"></i>
+                    <span class="text-[9px] uppercase tracking-[0.2em] font-bold">Avatars</span>
+                </div>
+                <div class="flex flex-col items-center gap-3">
+                    <i data-lucide="lock" class="w-5 h-5 text-[#D4AF37]"></i>
+                    <span class="text-[9px] uppercase tracking-[0.2em] font-bold">Contracts</span>
+                </div>
+                <div class="flex flex-col items-center gap-3">
+                    <i data-lucide="hourglass" class="w-5 h-5 text-[#D4AF37]"></i>
+                    <span class="text-[9px] uppercase tracking-[0.2em] font-bold">Capsules</span>
+                </div>
             </div>
         </main>
 
-        <!-- Tech Specs Overlay -->
-        <div id="tech-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6">
-            <div class="absolute inset-0 bg-black/90 backdrop-blur-2xl" id="close-modal-bg"></div>
-            <div class="relative w-full max-w-4xl glass-card border border-white/10 rounded-3xl p-8 md:p-12 overflow-y-auto max-h-[90vh]">
-                <button id="close-modal" class="absolute top-6 right-6 text-zinc-500 hover:text-white transition-colors">
-                    <i data-lucide="x" class="w-8 h-8"></i>
+        <!-- Footer -->
+        <footer class="p-8 text-center">
+            <p id="footer-text" class="text-[10px] text-white/30 tracking-[0.3em] uppercase">
+                Where your productivity becomes a sovereign legacy.
+            </p>
+        </footer>
+    </div>
+
+    <!-- Modal: Demonstration -->
+    <div id="demo-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-6 hidden opacity-0">
+        <div id="modal-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
+        <div class="relative w-full max-w-md glass-card p-10 rounded-[32px] border border-white/20 shadow-2xl">
+            <button id="modal-close" class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <h2 class="text-2xl font-light mb-2 tracking-wide text-white" data-i18n="demo_modal_title">Access Demo</h2>
+            <p class="text-sm text-white/50 mb-8" data-i18n="demo_modal_subtitle">Enter your details to receive access.</p>
+            
+            <form id="demo-form" class="space-y-5">
+                <div>
+                    <input type="text" placeholder="Name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-colors" required>
+                </div>
+                <div>
+                    <input type="email" placeholder="Corporate Email" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#D4AF37]/50 transition-colors" required>
+                </div>
+                <button type="submit" class="premium-button w-full py-4 rounded-xl text-xs font-bold tracking-widest uppercase mt-4">
+                    <span data-i18n="request_access">Request Access</span>
                 </button>
-                <div id="tech-specs-content"></div>
-            </div>
+            </form>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script type="module" src="app.js"></script>
 </body>
 </html>

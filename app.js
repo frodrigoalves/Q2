@@ -1,152 +1,135 @@
-import { avatars, techSpecs, ambientMusic } from './data.js';
-import { updateTelemetry } from './telemetry.js';
-import { AudioManager } from './audio_manager.js';
+import { translations } from './translations.js';
 
-class App {
-    constructor() {
-        this.currentAvatar = 'rafaela';
-        this.audio = new AudioManager();
-        this.init();
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
 
-    init() {
-        lucide.createIcons();
-        this.setupEventListeners();
-        this.audio.initAmbient(ambientMusic);
-        this.switchAvatar(this.currentAvatar);
-        this.renderTechSpecs();
-    }
+    const container = document.getElementById('main-container');
+    const bg = document.getElementById('main-bg');
+    const langToggle = document.getElementById('lang-toggle');
+    const themeToggle = document.getElementById('theme-toggle');
+    const btnSite = document.getElementById('btn-site');
+    const btnDemo = document.getElementById('btn-demo-trigger');
+    const modal = document.getElementById('demo-modal');
+    const modalClose = document.getElementById('modal-close');
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const demoForm = document.getElementById('demo-form');
+    const htmlElement = document.documentElement;
 
-    setupEventListeners() {
-
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = btn.getAttribute('data-avatar');
-                this.switchAvatar(id);
-                
-                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
+    let currentLang = 'EN';
+    let isDark = true;
 
 
-        document.getElementById('play-voice').addEventListener('click', () => {
-            const avatar = avatars[this.currentAvatar];
-            const btn = document.getElementById('play-voice');
-            const originalContent = btn.innerHTML;
-            
-            btn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Processing...`;
-            lucide.createIcons();
+    const bgImageUrl = 'https://r2-bucket.flowith.net/f/e08a497b5fb7d9e0/cyber_organic_neural_swarm_background_index_0%404096x2286.jpeg';
+    const bgImage = new Image();
+    bgImage.src = bgImageUrl;
+    bgImage.onload = () => {
+        gsap.to(bg, { opacity: 1, duration: 1.5, ease: "power2.out" });
+        gsap.to(container, { opacity: 1, duration: 2, delay: 0.5, ease: "power3.out" });
+        gsap.to(bg, { scale: 1, duration: 12, ease: "sine.inOut" });
+    };
 
-            this.audio.playVoice(avatar.voice, () => {
-                btn.innerHTML = originalContent;
-                lucide.createIcons();
-            });
-        });
-
-
-        document.getElementById('volume-slider').addEventListener('input', (e) => {
-            this.audio.setAmbientVolume(e.target.value);
-        });
-
-
-        document.getElementById('tech-specs-trigger').addEventListener('click', () => {
-            document.getElementById('tech-modal').classList.remove('hidden');
-            document.getElementById('tech-modal').classList.add('flex');
-        });
-
-        const closeBtn = document.getElementById('close-modal');
-        const modalBg = document.getElementById('close-modal-bg');
-        const closeModal = () => {
-            document.getElementById('tech-modal').classList.add('hidden');
-            document.getElementById('tech-modal').classList.remove('flex');
-        };
-        closeBtn.addEventListener('click', closeModal);
-        modalBg.addEventListener('click', closeModal);
-    }
-
-    switchAvatar(id) {
-        const container = document.getElementById('content-container');
-        container.style.opacity = '0';
+    const updateLanguage = (lang) => {
+        currentLang = lang;
+        const data = translations[lang];
         
-        setTimeout(() => {
-            this.currentAvatar = id;
-            const avatar = avatars[id];
-            
+        document.getElementById('hero-tagline').textContent = data.hero_tagline;
+        document.getElementById('hero-title').innerHTML = data.hero_title;
+        document.getElementById('hero-desc').textContent = data.hero_desc;
+        document.getElementById('footer-text').textContent = data.footer_text;
+        document.getElementById('current-lang').textContent = data.current_lang_label;
 
-            document.documentElement.style.setProperty('--accent-color', avatar.accent);
-            
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (data[key]) el.textContent = data[key];
+        });
+        
 
-            document.getElementById('avatar-name').textContent = avatar.name;
-            document.getElementById('avatar-mode').textContent = avatar.mode;
-            document.getElementById('avatar-bio').textContent = avatar.bio;
-            document.getElementById('avatar-bg').style.backgroundImage = `url('${avatar.image}')`;
-            document.getElementById('system-constraint').textContent = avatar.constraint;
-            
-
-            this.animateValue('stat-precision', avatar.stats.precision, '%');
-            this.animateValue('stat-response', avatar.stats.latency, 'ms');
-            
-            document.getElementById('bar-precision').style.width = `${avatar.stats.precision}%`;
-            document.getElementById('bar-response').style.width = `${(1 - avatar.stats.latency/300) * 100}%`;
-
-
-            updateTelemetry('telemetryChart', avatar.stats, avatar.accent);
-            
-
-            container.style.opacity = '1';
-            lucide.createIcons();
-        }, 300);
-    }
-
-    animateValue(id, target, suffix = '') {
-        const obj = document.getElementById(id);
-        let start = 0;
-        const duration = 1000;
-        const startTime = performance.now();
-
-        function update(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const current = Math.floor(progress * target);
-            obj.innerHTML = current + suffix;
-            
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            }
+        const inputs = demoForm.querySelectorAll('input');
+        if (lang === 'PT') {
+            inputs[0].placeholder = "Nome";
+            inputs[1].placeholder = "E-mail Corporativo";
+        } else {
+            inputs[0].placeholder = "Name";
+            inputs[1].placeholder = "Corporate Email";
         }
-        requestAnimationFrame(update);
-    }
+    };
 
-    renderTechSpecs() {
-        const target = document.getElementById('tech-specs-content');
-        target.innerHTML = `
-            <div class="flex items-center gap-4 mb-8">
-                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
-                    <i data-lucide="cpu" class="w-6 h-6 text-white"></i>
-                </div>
-                <div>
-                    <h3 class="text-3xl font-bold">Tech Specs</h3>
-                    <p class="text-zinc-500">${techSpecs.model}</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                ${techSpecs.features.map(f => `
-                    <div class="p-6 bg-white/5 rounded-2xl border border-white/5">
-                        <h4 class="text-lg font-bold mb-2">${f.title}</h4>
-                        <p class="text-zinc-400 text-sm leading-relaxed">${f.description}</p>
-                    </div>
-                `).join('')}
-            </div>
-            <div class="p-6 border-l-2 border-white/20 bg-white/5 italic text-zinc-300">
-                "${techSpecs.quote}"
-            </div>
-        `;
-        lucide.createIcons();
-    }
-}
+    const updateTheme = () => {
+        isDark = !isDark;
+        htmlElement.classList.toggle('dark', isDark);
+        htmlElement.classList.toggle('light', !isDark);
+        document.querySelector('.theme-icon-light').classList.toggle('hidden', isDark);
+        document.querySelector('.theme-icon-dark').classList.toggle('hidden', !isDark);
+    };
 
 
-window.addEventListener('DOMContentLoaded', () => {
-    new App();
+    const triggerPortalTransition = () => {
+        const tl = gsap.timeline({
+            onComplete: () => {
+                window.open('https://singulai.site', '_blank');
+                gsap.to([container, bg], { opacity: 1, scale: 1, duration: 1 });
+            }
+        });
+
+        tl.to(container, { opacity: 0, scale: 0.95, duration: 0.8, ease: "power2.inOut" })
+          .to(bg, { scale: 2.5, filter: "blur(20px)", opacity: 0, duration: 1.5, ease: "expo.inOut" }, "-=0.4");
+    };
+
+
+    const openModal = () => {
+        modal.classList.remove('hidden');
+        gsap.to(modal, { opacity: 1, duration: 0.4, ease: "power2.out" });
+        gsap.fromTo(modal.querySelector('.glass-card'), 
+            { scale: 0.9, y: 20 }, 
+            { scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }
+        );
+    };
+
+    const closeModal = () => {
+        gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => modal.classList.add('hidden') });
+    };
+
+
+    langToggle.addEventListener('click', () => {
+        const nextLang = currentLang === 'PT' ? 'EN' : 'PT';
+        gsap.to(container, { opacity: 0, y: 10, duration: 0.3, onComplete: () => {
+            updateLanguage(nextLang);
+            gsap.to(container, { opacity: 1, y: 0, duration: 0.5 });
+        }});
+    });
+
+    themeToggle.addEventListener('click', () => {
+        gsap.to('body', { opacity: 0.5, duration: 0.2, onComplete: () => {
+            updateTheme();
+            gsap.to('body', { opacity: 1, duration: 0.2 });
+        }});
+    });
+
+    btnSite.addEventListener('click', (e) => {
+        e.preventDefault();
+        triggerPortalTransition();
+    });
+
+    btnDemo.addEventListener('click', openModal);
+    modalClose.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', closeModal);
+
+    demoForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = demoForm.querySelector('button');
+        const originalText = btn.textContent;
+        btn.textContent = currentLang === 'PT' ? 'PROCESSANDO...' : 'PROCESSING...';
+        btn.disabled = true;
+
+        setTimeout(() => {
+            alert(currentLang === 'PT' ? 'Acesso solicitado com sucesso! Entraremos em contato.' : 'Access requested! We will be in touch soon.');
+            btn.textContent = originalText;
+            btn.disabled = false;
+            closeModal();
+            demoForm.reset();
+        }, 1500);
+    });
+
+
+    updateLanguage(currentLang);
 });

@@ -1,69 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700&display=swap');
+
 :root {
-    --ice-blue: #a5f3fc;
-    --neon-green: #4ade80;
-    --vibrant-gold: #fbbf24;
-    --accent-color: var(--ice-blue);
+    --gold: #D4AF37;
+    --deep-blue: #000033;
+    --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.text-ice-blue { color: var(--ice-blue); }
-.text-neon-green { color: var(--neon-green); }
-.text-vibrant-gold { color: var(--vibrant-gold); }
+body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--deep-blue);
+    margin: 0;
+}
 
-.bg-ice-blue { background-color: var(--ice-blue); }
-.bg-neon-green { background-color: var(--neon-green); }
-.bg-vibrant-gold { background-color: var(--vibrant-gold); }
+/* Glassmorphism */
+.glass-button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: var(--transition-smooth);
+    color: white;
+}
+
+.glass-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(212, 175, 55, 0.4);
+    transform: translateY(-2px);
+}
 
 .glass-card {
-    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8);
 }
 
-.nav-btn.active {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-right: 2px solid var(--accent-color);
+/* Premium Buttons */
+.premium-button {
+    background: var(--gold);
+    color: var(--deep-blue);
+    transition: var(--transition-smooth);
+    border: 1px solid var(--gold);
 }
 
-#avatar-bg {
-    filter: brightness(0.6) contrast(1.1);
+.premium-button:hover {
+    background: #e5c04e;
+    transform: scale(1.04);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
 }
 
-input[type="range"]::-webkit-slider-thumb {
-    appearance: none;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: white;
-    cursor: pointer;
-}
-
-.text-accent-color {
-    color: var(--accent-color);
-}
-
-/* Scrollbar styles */
-::-webkit-scrollbar {
-    width: 4px;
-}
-::-webkit-scrollbar-track {
+.premium-button-outline {
     background: transparent;
-}
-::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+    transition: var(--transition-smooth);
 }
 
-@keyframes pulse-accent {
-    0% { opacity: 0.5; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.05); }
-    100% { opacity: 0.5; transform: scale(1); }
+.premium-button-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(212, 175, 55, 0.05);
 }
 
-.voice-playing .play-icon {
-    display: none;
+/* Theme Variations */
+html.light body {
+    background: #ffffff;
+    color: var(--deep-blue);
 }
-.voice-playing .pause-icon {
-    display: block;
+
+html.light #bg-overlay {
+    background: rgba(255, 255, 255, 0.75);
+}
+
+html.light .glass-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+html.light .glass-button {
+    color: var(--deep-blue);
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+html.light .premium-button-outline {
+    color: var(--deep-blue);
+    border-color: var(--deep-blue);
+}
+
+html.light #hero-title span {
+    color: var(--deep-blue);
+}
+
+/* Mobile Fixes */
+@media (max-width: 640px) {
+    .glass-card {
+        padding: 2.5rem 1.5rem;
+        border-radius: 24px;
+    }
+}
+
+/* Utilities */
+.hidden { display: none !important; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 0px; }
+
+/* Modal specific inputs */
+input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+html.light input {
+    color: var(--deep-blue);
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+html.light input::placeholder {
+    color: rgba(0, 0, 51, 0.4);
 }
