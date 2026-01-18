@@ -3,131 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SingulAI | Sovereign Intelligence</title>
+    <title>SingulAI | Architecting the Intelligence Layer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-black">
-    <div id="custom-cursor"></div>
-    <div class="cursor-follower"></div>
-    <div id="canvas-container"></div>
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 px-8 py-6 flex justify-between items-center backdrop-blur-md border-b border-white/5">
-        <div class="text-xl font-bold-wide tracking-tighter">SingulAI<span class="text-cyan-400">.</span></div>
-        <div class="flex gap-8 text-xs font-mono uppercase tracking-widest text-white/60">
-            <a href="#hero" class="hover:text-cyan-400 transition-colors">Origins</a>
-            <a href="#ruptura" class="hover:text-cyan-400 transition-colors">Rupture</a>
-            <a href="#node" class="hover:text-cyan-400 transition-colors">Sovereignty</a>
-            <a href="#engine" class="hover:text-cyan-400 transition-colors">Engine</a>
-        </div>
-        <button class="glass-card px-6 py-2 text-[10px] font-mono tracking-widest hover:bg-white hover:text-black transition-all">
-            CONNECT_WALLET
-        </button>
-    </nav>
-
-    <!-- Audio Control -->
-    <div class="audio-control">
-        <button id="audio-toggle" class="glass-card p-4 rounded-full flex items-center justify-center">
-            <i data-lucide="volume-2" class="w-4 h-4 text-cyan-400"></i>
-        </button>
-    </div>
-
-    <main>
-        <!-- Section 1: Hero -->
-        <section id="hero" class="relative overflow-hidden">
-            <div class="absolute inset-0 z-0 opacity-40">
-                <img id="hero-img" src="" alt="Sacred Geometry" class="w-full h-full object-cover">
-            </div>
-            <div class="relative z-10 max-w-5xl mx-auto">
-                <p class="font-mono text-cyan-400 text-xs mb-4 tracking-[0.5em] uppercase">Status: Online // Local Node</p>
-                <h1 class="text-7xl md:text-9xl font-bold-wide mb-8 leading-none glitch-reveal" id="hero-title">
-                    The Singularity <br><span class="cyber-gradient-text">won't be streamed.</span>
-                </h1>
-                <p class="text-xl text-white/60 max-w-2xl font-light leading-relaxed glitch-reveal">
-                    Welcome to the era of <strong>Sovereign Intelligence</strong>. SingulAI is not a tool; it is an extension of your consciousness running on your own metal.
-                </p>
-            </div>
-            <div class="scroll-indicator">
-                <i data-lucide="chevron-down" class="text-cyan-400"></i>
-            </div>
-        </section>
-
-        <!-- Section 2: Ruptura -->
-        <section id="ruptura" class="bg-zinc-950">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="order-2 md:order-1">
-                    <div class="glass-card p-1">
-                        <img id="ruptura-img" src="" alt="Cloud Rupture" class="w-full grayscale hover:grayscale-0 transition-all duration-700">
-                    </div>
-                </div>
-                <div class="order-1 md:order-2">
-                    <h2 class="text-5xl font-bold-wide mb-6">Corporate <br>Blackboxes <br>are <span class="text-purple-600">Data Prisons</span>.</h2>
-                    <p class="text-white/50 text-lg mb-8">
-                        Centralized AI is an advanced form of servitude. We break the umbilical cord to the cloud to forge a network of indomitable nodes.
-                    </p>
-                    <div class="grid grid-cols-2 gap-4 font-mono text-[10px] text-cyan-400">
-                        <div class="border border-white/10 p-4">/ DECENTRALIZED_CONSENSUS</div>
-                        <div class="border border-white/10 p-4">/ ZERO_KNOWLEDGE_PROOFS</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 3: Sovereign Node -->
-        <section id="node" class="relative">
-            <div class="max-w-7xl mx-auto w-full">
-                <div class="bento-grid h-[600px]">
-                    <div class="col-span-12 md:col-span-8 row-span-4 glass-card relative overflow-hidden p-12 flex flex-col justify-end">
-                        <img id="node-img" src="" alt="AI Core" class="absolute top-0 right-0 w-2/3 h-full object-cover opacity-60 mix-blend-screen">
-                        <div class="relative z-10">
-                            <h3 class="text-4xl font-bold-wide mb-4">Your Hardware, <br>Your Jurisdiction.</h3>
-                            <p class="text-white/60 max-w-md uppercase text-xs tracking-widest">No proprietary APIs. No third-party censorship. Only the biometry of truth processed locally.</p>
-                        </div>
-                    </div>
-                    <div class="col-span-12 md:col-span-4 row-span-2 glass-card p-8 flex flex-col justify-center border-cyan-400/30">
-                        <div class="text-3xl font-bold-wide text-cyan-400 mb-2">0.0ms</div>
-                        <p class="font-mono text-[10px] text-white/40">LATENCY_NETWORK_BYPASS</p>
-                    </div>
-                    <div class="col-span-12 md:col-span-4 row-span-2 glass-card p-8 flex items-center gap-4">
-                        <i data-lucide="shield-check" class="text-purple-500 w-8 h-8"></i>
-                        <div>
-                            <p class="font-bold uppercase text-xs">Biometric Sync</p>
-                            <p class="text-[10px] text-white/40 font-mono">ENCRYPTED_HARDWARE_PATH</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 4: Engine Intro -->
-        <section id="engine" class="bg-black">
-            <div class="text-center max-w-4xl mx-auto">
-                <img id="engine-img" src="" alt="Ollama Stream" class="w-48 h-48 mx-auto mb-12 rounded-full border-2 border-cyan-400 p-2 object-cover">
-                <h2 class="text-6xl font-bold-wide mb-8 tracking-tighter">Ollama: Raw Inference.</h2>
-                <div class="flex justify-center gap-4 mb-12">
-                    <span class="px-4 py-2 border border-white/10 font-mono text-xs">LLAMA_3.1</span>
-                    <span class="px-4 py-2 border border-white/10 font-mono text-xs">MISTRAL_7B</span>
-                    <span class="px-4 py-2 border border-white/10 font-mono text-xs">LOCAL_GEN_AI</span>
-                </div>
-                <p class="text-white/60 text-xl font-light">
-                    We use the <strong>Ollama</strong> engine to ensure zero latency and absolute privacy. Your models, your rules. Knowledge resides where action happens.
-                </p>
-            </div>
-        </section>
-    </main>
-
-    <footer class="py-12 border-t border-white/5 px-8 flex justify-between items-center text-[10px] font-mono text-white/30 uppercase tracking-[0.3em]">
-        <div>© 2026 SingulAI // Protocol 0x1</div>
-        <div>Codify your freedom.</div>
-    </footer>
-
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script type="module" src="main.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-black text-white antialiased overflow-x-hidden pitch-mode">
+
+    <!-- Global Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-nav border-b border-white/10 px-4 md:px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 md:w-10 md:h-10 bg-white rounded-lg md:rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                <span class="text-black font-black text-base md:text-lg">S</span>
+            </div>
+            <div class="flex flex-col leading-none">
+                <span class="font-bold tracking-tighter text-sm md:text-lg">SingulAI</span>
+                <span class="text-[8px] md:text-[9px] uppercase tracking-[0.2em] text-white/50">Berserk Edition</span>
+            </div>
+        </div>
+        
+        <div class="hidden lg:flex items-center gap-8 text-[10px] font-bold tracking-widest text-white/40 uppercase">
+            <a href="#backend-section" class="hover:text-white transition-colors">Backend</a>
+            <a href="#frontend-section" class="hover:text-white transition-colors">Frontend</a>
+            <a href="#scope-section" class="hover:text-white transition-colors">Roadmap</a>
+            <a href="#strategy-section" class="hover:text-white transition-colors">Strategy</a>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <div class="flex bg-white/5 p-1 rounded-full text-[9px] md:text-[10px] font-bold border border-white/10">
+                <button id="lang-pt" class="px-3 md:px-4 py-1.5 md:py-2 rounded-full transition-all hover:text-white">PT</button>
+                <button id="lang-en" class="px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-white text-black shadow-lg transition-all">EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Side Panel Overlay -->
+    <div id="side-panel-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[60] opacity-0 pointer-events-none transition-opacity duration-500"></div>
+    <div id="side-panel" class="fixed right-0 top-0 h-full w-full max-w-2xl bg-zinc-950 z-[70] shadow-2xl translate-x-full transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] border-l border-white/5">
+        <div class="h-full flex flex-col p-6 md:p-12">
+            <div class="flex justify-between items-center mb-8 md:mb-16">
+                <div id="panel-badge" class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] md:text-[10px] font-bold tracking-[0.3em] uppercase text-blue-400"></div>
+                <button id="close-panel" class="p-2 md:p-3 hover:bg-white/5 rounded-full transition-colors border border-transparent hover:border-white/10">
+                    <i data-lucide="x" class="w-5 h-5 md:w-6 md:h-6 text-white/50"></i>
+                </button>
+            </div>
+            <div id="panel-content" class="flex-1 overflow-y-auto custom-scrollbar pr-2 md:pr-6">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <main class="relative">
+        <!-- Hero Section -->
+        <section id="slide-hero" class="min-h-screen flex flex-col justify-center px-6 relative overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="https://r2-bucket.flowith.net/f/c0e619c0ce26d733/ai_blockchain_architectural_visualization_index_0%404096x2286.jpeg" 
+                     class="w-full h-full object-cover opacity-30 md:opacity-40 scale-105" alt="Master Architecture">
+                <div class="absolute inset-0 bg-gradient-to-b from-black via-black/20 to-black"></div>
+            </div>
+
+            <div class="relative z-10 max-w-6xl mx-auto w-full pt-20">
+                <div class="reveal-hero text-center md:text-left">
+                    <span class="text-blue-500 font-mono text-[10px] md:text-sm tracking-[0.5em] mb-4 md:mb-6 block uppercase" data-i18n="systemReady">PRE-SEED ARCHITECTURE</span>
+                    <h1 class="text-5xl md:text-7xl lg:text-[120px] font-black tracking-tighter mb-6 md:mb-10 leading-[0.9] uppercase">
+                        <span class="block">SingulAI</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/40 to-white/10 block">Protocol 2026</span>
+                    </h1>
+                    <p class="text-base md:text-xl lg:text-2xl text-white/50 max-w-3xl font-light mb-12 md:mb-16 leading-relaxed mx-auto md:mx-0" data-i18n="heroSubtitle"></p>
+                    
+                    <div class="flex gap-4 no-print flex-wrap justify-center md:justify-start">
+                        <!-- PITCH START Button -->
+                        <button class="bg-white text-black px-10 py-5 rounded-2xl font-black text-sm tracking-widest hover:scale-105 transition-transform flex items-center gap-3">
+                            <i data-lucide="play" class="w-4 h-4 fill-black"></i>
+                            PITCH START
+                        </button>
+                        
+                        <!-- NEW ACCESS DASHBOARD Button -->
+                        <a href="dashboard.html" 
+                           class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-10 py-5 rounded-2xl font-black text-sm tracking-widest hover:scale-105 transition-transform flex items-center gap-3 hover:opacity-90">
+                            <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+                            ACCESS DASHBOARD
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mode Toggle -->
+        <div class="fixed bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-50">
+            <div class="bg-zinc-900/90 backdrop-blur-3xl p-1.5 rounded-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center gap-1.5">
+                <button id="mode-pitch" class="px-4 md:px-6 py-2 md:py-2.5 rounded-xl transition-all font-bold text-[9px] md:text-[10px] uppercase tracking-widest flex items-center gap-2 bg-white text-black shadow-lg">
+                    <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                    Pitch
+                </button>
+                <button id="mode-deep" class="px-4 md:px-6 py-2 md:py-2.5 rounded-xl transition-all font-bold text-[9px] md:text-[10px] uppercase tracking-widest flex items-center gap-2 text-white/40 hover:text-white">
+                    <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                    Technical
+                </button>
+            </div>
+        </div>
+
+        <!-- content sections -->
+        <div class="max-w-7xl mx-auto px-6 space-y-32 md:space-y-64 py-20 md:py-32">
+            
+            <!-- Backend -->
+            <section id="backend-section" class="scroll-mt-32">
+                <div class="flex flex-col lg:flex-row gap-12 lg:gap-24 items-start">
+                    <div class="w-full lg:w-5/12 lg:sticky lg:top-32">
+                        <span class="text-blue-500 font-bold tracking-[0.4em] text-[10px] uppercase mb-6 block" data-i18n="coreLabel">CORE INFRASTRUCTURE</span>
+                        <h2 class="text-4xl md:text-6xl font-black mb-6 md:mb-10 tracking-tighter uppercase" data-i18n="backendTitle">Backend Mesh</h2>
+                        <div id="backend-intro" class="text-base md:text-lg text-white/60 leading-relaxed mb-10 md:mb-16 font-light"></div>
+                        
+                        <div id="backend-drawers" class="space-y-4">
+                            <!-- JS Injection -->
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-7/12 rounded-[24px] md:rounded-[40px] overflow-hidden border border-white/5 bg-zinc-950 relative group">
+                        <img src="https://r2-bucket.flowith.net/f/f954f10bf5a2edfd/backend_architecture_3d_icon_index_0%402048x2048.jpeg" 
+                             class="w-full aspect-square object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Frontend -->
+            <section id="frontend-section" class="scroll-mt-32">
+                <div class="flex flex-col lg:flex-row-reverse gap-12 lg:gap-24 items-start">
+                    <div class="w-full lg:w-5/12 lg:sticky lg:top-32">
+                        <span class="text-purple-500 font-bold tracking-[0.4em] text-[10px] uppercase mb-6 block" data-i18n="interfaceLabel">USER LAYER</span>
+                        <h2 class="text-4xl md:text-6xl font-black mb-6 md:mb-10 tracking-tighter uppercase" data-i18n="frontendTitle">Human Interface</h2>
+                        <div id="frontend-intro" class="text-base md:text-lg text-white/60 leading-relaxed mb-10 md:mb-16 font-light"></div>
+                        
+                        <div id="frontend-drawers" class="space-y-4">
+                            <!-- JS Injection -->
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-7/12 rounded-[24px] md:rounded-[40px] overflow-hidden border border-white/5 bg-zinc-950 relative group">
+                        <img src="https://r2-bucket.flowith.net/f/b4a17be4d580dd72/frontend_architecture_isometric_icon_index_1%402048x2048.jpeg" 
+                             class="w-full aspect-square object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MVP Scope Grid -->
+            <section id="scope-section" class="scroll-mt-32">
+                <div class="text-center mb-16 md:mb-32">
+                    <h2 class="text-4xl md:text-6xl font-black mb-6 tracking-tighter uppercase" data-i18n="scopeTitle">Roadmap</h2>
+                    <p class="text-white/40 max-w-2xl mx-auto text-base md:text-lg font-light px-4" data-i18n="scopeSubtitle"></p>
+                </div>
+
+                <div id="module-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                    <!-- Cards injected by JS -->
+                </div>
+            </section>
+
+            <!-- Strategic Strategy -->
+             <section id="strategy-section" class="bg-zinc-950 rounded-[32px] md:rounded-[60px] p-8 md:p-20 border border-white/10 relative overflow-hidden">
+                <div class="relative z-10 max-w-3xl">
+                    <span class="text-blue-500 font-mono text-xs md:text-sm mb-6 md:mb-8 block tracking-[0.5em] uppercase" data-i18n="strategyLabel">STRATEGIC MOAT</span>
+                    <h2 class="text-4xl md:text-6xl font-black mb-8 md:mb-10 tracking-tighter uppercase" data-i18n="strategyTitle">The Alpha Convergence</h2>
+                    <p class="text-xl md:text-2xl text-white/70 font-light leading-relaxed mb-10 md:mb-12" id="strategy-content"></p>
+                    
+                    <div class="flex items-center gap-8 md:gap-12">
+                        <div class="flex flex-col">
+                            <span class="text-3xl md:text-4xl font-black text-white">16</span>
+                            <span class="text-[9px] md:text-[10px] text-white/40 uppercase tracking-widest">Week Sprint</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-3xl md:text-4xl font-black text-white">10k+</span>
+                            <span class="text-[9px] md:text-[10px] text-white/40 uppercase tracking-widest">Global Nodes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute right-[-10%] bottom-[-10%] w-2/3 h-full opacity-10 md:opacity-20 pointer-events-none blur-2xl">
+                    <img src="https://r2-bucket.flowith.net/f/daf157b1bf3908ed/ai_engine_isometric_icon_index_3.jpeg" class="w-full h-full object-contain rotate-12">
+                </div>
+             </section>
+        </div>
+    </main>
+
+    <footer class="border-t border-white/5 py-16 md:py-32 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start text-white/30 text-[10px] md:text-xs">
+            <div class="mb-12 md:mb-0">
+                 <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-lg md:rounded-2xl flex items-center justify-center mb-6 md:mb-8">
+                    <span class="text-black font-black text-lg md:text-xl">S</span>
+                </div>
+                <p class="max-w-xs leading-loose">© 2026 SingulAI Technologies. <br>Architected for Hyper-scale Intelligence. <br>Silicon Valley / Global nodes.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-12 md:gap-24">
+                <div class="flex flex-col gap-3 md:gap-4">
+                    <span class="text-white font-bold mb-2 uppercase tracking-widest text-[9px] md:text-[11px]">Resources</span>
+                    <a href="#" class="hover:text-white transition-colors">Technical Whitepaper</a>
+                    <a href="#" class="hover:text-white transition-colors">API Documentation</a>
+                    <a href="#" class="hover:text-white transition-colors">Tokenomics v2.1</a>
+                </div>
+                <div class="flex flex-col gap-3 md:gap-4">
+                    <span class="text-white font-bold mb-2 uppercase tracking-widest text-[9px] md:text-[11px]">Legal</span>
+                    <a href="#" class="hover:text-white transition-colors">Data Sovereignty</a>
+                    <a href="#" class="hover:text-white transition-colors">Privacy Shield</a>
+                    <a href="#" class="hover:text-white transition-colors">Compliance Hub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="app.js"></script>
 </body>
 </html>
