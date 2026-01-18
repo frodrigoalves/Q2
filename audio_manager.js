@@ -1,43 +1,27 @@
 export class AudioManager {
-    constructor() {
-        this.ambient = new Audio();
-        this.ambient.loop = true;
-        this.voice = new Audio();
-        this.isVoicePlaying = false;
-    }
-
-    initAmbient(src, initialVolume = 0.3) {
-        this.ambient.src = src;
-        this.ambient.volume = initialVolume;
+    constructor(audioUrl) {
+        this.audio = new Audio(audioUrl);
+        this.audio.loop = true;
+        this.isPlaying = false;
+        this.btn = document.getElementById('audio-toggle');
+        this.icon = this.btn.querySelector('i');
         
-
-        document.addEventListener('click', () => {
-            if (this.ambient.paused) {
-                this.ambient.play().catch(e => console.log("Ambient play blocked"));
-            }
-        }, { once: true });
+        this.init();
     }
 
-    setAmbientVolume(value) {
-        this.ambient.volume = value;
+    init() {
+        this.btn.addEventListener('click', () => this.toggle());
     }
 
-    playVoice(src, onEnd) {
-        if (this.isVoicePlaying) {
-            this.voice.pause();
+    toggle() {
+        if (this.isPlaying) {
+            this.audio.pause();
+            this.icon.setAttribute('data-lucide', 'volume-x');
+        } else {
+            this.audio.play().catch(e => console.log("User interaction required"));
+            this.icon.setAttribute('data-lucide', 'volume-2');
         }
-        this.voice.src = src;
-        this.voice.play();
-        this.isVoicePlaying = true;
-        
-        this.voice.onended = () => {
-            this.isVoicePlaying = false;
-            if (onEnd) onEnd();
-        };
-    }
-
-    stopVoice() {
-        this.voice.pause();
-        this.isVoicePlaying = false;
+        this.isPlaying = !this.isPlaying;
+        lucide.createIcons();
     }
 }
